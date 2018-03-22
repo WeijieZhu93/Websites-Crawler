@@ -1,0 +1,33 @@
+#include<cstdio>
+#include <string>
+#include <iostream>
+#include <cmath>
+using namespace std;
+int main() {
+    string a;
+    string b;
+    cin>>a;
+    cin>>b;
+    int c[100010]={0};
+    int len_a = a.size();
+    int len_b = b.size();
+    if (b[0]=='a') c[0]=1;
+    for (int i=1;i<len_b;i++) {
+        if (b[i]=='a') c[i] = c[i-1]+1;
+        else c[i]=c[i-1];
+    }
+
+    long long ans=0;
+    for (int i=0;i<len_a;i++) {
+        int p1 = min(i,len_b-1);
+        int p2 = max(i-(len_a-1-len_b+1),0);
+        int count = p1-p2+1;
+        int num = c[p1]-c[p2];
+        if (b[p2] == 'a') num++;
+        if (a[i]=='a') ans+=count-num;
+        else ans+=num;
+    }
+    cout<<ans<<endl;
+    return 0;
+}
+
